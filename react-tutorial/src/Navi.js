@@ -5,11 +5,8 @@ import {
     NavbarToggler,
     NavbarBrand,
     Nav,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
 } from "reactstrap";
+import CartSummary from "./CartSummary";
 
 export default class Navi extends React.Component {
     constructor(props) {
@@ -33,20 +30,8 @@ export default class Navi extends React.Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    Cart - {this.props.cart.length}
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem>
-                                        Option 1
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        Option 2
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-
+                            <CartSummary cart={this.props.cart} />
+                            { /*Cart Appden Naviye naviden Cart Summarye props ile geçiyor*/}
                         </Nav>
                     </Collapse>
                 </Navbar>

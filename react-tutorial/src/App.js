@@ -32,9 +32,9 @@ export default class App extends Component {
   }
 
   addToChart = (product) => {
-    alert(product.productName);
+    alert(product.productName + " eklendi.");
     let newCart = this.state.cart;
-    newCart.push({ product: product, quantity: 1 });
+    newCart.push({ product: product, quantity: 1 }); //product ve adedi tutulacak
     this.setState({ cart: newCart });
   }
 
@@ -52,7 +52,8 @@ export default class App extends Component {
                 info={categoryInfo} />
             </Col>
             <Col xs="9">
-              <ProductList addToChart={this.addToChart}
+              <ProductList
+                addToChart={this.addToChart}
                 products={this.state.products}
                 currentCategory={this.state.currentCategory}
                 info={productInfo} />
