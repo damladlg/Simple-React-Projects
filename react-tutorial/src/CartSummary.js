@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 import {
     UncontrolledDropdown,
     DropdownToggle,
@@ -33,6 +34,10 @@ export default class CartSummary extends Component {
                             </DropdownItem>
                         ))
                     }
+                    <DropdownItem divider />
+                    <DropdownItem >
+                        <Link to="cart">Go to Cart</Link>
+                    </DropdownItem>
                 </DropdownMenu>
             </UncontrolledDropdown>)
     }

@@ -36,7 +36,14 @@ export default class App extends Component {
 
   addToChart = (product) => {
     let newCart = this.state.cart;
-    newCart.push({ product: product, quantity: 1 }); //product ve adedi tutulacak
+    var addedItem = newCart.find(c => c.product.id === product.id);
+    if (addedItem) {
+      addedItem.quantity += 1;
+    }
+    else {
+      newCart.push({ product: product, quantity: 1 }); //product ve adedi tutulacak
+    }
+
     this.setState({ cart: newCart });
 
     alertify.success(product.productName + " added to cart.", 2)
@@ -45,6 +52,8 @@ export default class App extends Component {
   removeFromCard = (product) => {
     let newCart = this.state.cart.filter(c => c.product.id !== product.id)
     this.setState({ cart: newCart });
+
+    alertify.error(product.productName + " removed from cart.", 2)
   }
 
   render() {
@@ -76,7 +85,13 @@ export default class App extends Component {
                       info={productInfo} />
                   )
                   }></Route>
-                <Route exact path="/cart" component={CartList}></Route>
+                <Route exact path="/cart" render={props => (
+                  <CartList
+                    {...props}
+                    removeFromCard={this.removeFromCard}
+                    cart={this.state.cart} />
+                )
+                }></Route>
                 <Route component={NotFound}></Route>
               </Switch>
 
