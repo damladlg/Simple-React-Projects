@@ -30,7 +30,8 @@ export default class Navi extends React.Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            <CartSummary cart={this.props.cart} />
+                            <CartSummary cart={this.props.cart}
+                                removeFromCard={this.props.removeFromCard} />
                             { /*Cart Appden Naviye naviden Cart Summarye props ile geçiyor*/}
                         </Nav>
                     </Collapse>
