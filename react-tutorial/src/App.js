@@ -5,6 +5,9 @@ import CategoryList from './CategoryList';
 import ProductList from './ProductList';
 import Navi from "./Navi";
 import alertify from 'alertifyjs';
+import { Switch, Route } from "react-router";
+import NotFound from "./NotFound";
+import CartList from "./CartList";
 export default class App extends Component {
 
   state = {
@@ -60,11 +63,23 @@ export default class App extends Component {
                 info={categoryInfo} />
             </Col>
             <Col xs="9">
-              <ProductList
-                addToChart={this.addToChart}
-                products={this.state.products}
-                currentCategory={this.state.currentCategory}
-                info={productInfo} />
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={props => (
+                    <ProductList
+                      {...props} /*{propsların bir kopyasını al gönder.}*/
+                      addToChart={this.addToChart}
+                      products={this.state.products}
+                      currentCategory={this.state.currentCategory}
+                      info={productInfo} />
+                  )
+                  }></Route>
+                <Route exact path="/cart" component={CartList}></Route>
+                <Route component={NotFound}></Route>
+              </Switch>
+
             </Col>
           </Row>
         </Container>
