@@ -2,7 +2,7 @@ import React from "react";
 
 export const BookContext = React.createContext(); //create book context 
 
-class myData extends React.Component {
+class BookContextProvider extends React.Component {
     state = {
         books: [
             {
@@ -52,11 +52,11 @@ class myData extends React.Component {
 
     render() {
         return (
-            <BookContext.Provider value={this.state}>
+            <BookContext.Provider value={{ ...this.state }}>
                 {this.props.children} {/*propsun child componentine ulaşması için*/}
             </BookContext.Provider>
         )
     }
 }
 
-export default myData;
+export default BookContextProvider;
