@@ -13,7 +13,7 @@ class BookList extends React.Component {
                         {contextBook => {
 
                             const { books } = contextBook;
-                            const { isDarkTheme, dark, light } = contextTheme;
+                            const { isDarkTheme, dark, light, changeTheme } = contextTheme;
                             const theme = isDarkTheme ? dark : light;
 
                             {/* consumer ile contexden provider ile gönderilen valuedan veriyi aldık */ }
@@ -23,6 +23,8 @@ class BookList extends React.Component {
                                         <div className="text-center">
                                             <h2 className="section-heading text-uppercase">Bookfolio</h2>
                                             <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                                            <button type="button" className="btn btn-sm btn-info" style={{ marginTop: "-70px" }}
+                                                onClick={changeTheme}>Change Theme</button>
                                         </div>
                                         <div className="row">
                                             {books.map((book, i) => { return <Book book={book} key={i} /> })}
