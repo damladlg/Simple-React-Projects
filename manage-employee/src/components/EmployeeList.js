@@ -1,5 +1,5 @@
 import Employee from "./Employee";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { EmployeeContext } from "../contexts/EmployeeContext";
 import { Button, Modal } from 'react-bootstrap'
 import AddForm from "./AddForm";
@@ -13,6 +13,12 @@ const EmployeeList = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    /* employees stateinde herhangi bir değişiklik oldugunda useEffect hooku yardımıyla tekrardan render edildi, modal kapattırıldı. */
+    useEffect(() => {
+        return () => {
+            handleClose();
+        }
+    }, [employees])
     return (
         <>
             <div className="table-title">
