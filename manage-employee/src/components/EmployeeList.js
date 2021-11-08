@@ -1,9 +1,8 @@
 import Employee from "./Employee";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { EmployeeContext } from "../contexts/EmployeeContext";
 import { Button, Modal } from 'react-bootstrap'
 import AddForm from "./AddForm";
-
 
 const EmployeeList = () => {
 
@@ -13,12 +12,21 @@ const EmployeeList = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    /* employees stateinde herhangi bir değişiklik oldugunda useEffect hooku yardımıyla tekrardan render edildi, modal kapattırıldı. */
+    /* employees stateinde herhangi bir değişiklik oldugunda useEffect hooku yardımıyla tekrardan render edildi, modal kapattırıldı.
+    employees da bir değişiklik olmaz ise useEffect çalışmaz. */
     useEffect(() => {
         return () => {
             handleClose();
         }
     }, [employees])
+
+    /* herhangi bir dom elemanına referans vererek current özelliğine bir özellik verebiliriz. useRefi ayıran özelliği sürekli render etmez */
+    const myRef = useRef(null);
+
+    const onButtonClickWithRef = () => {
+        myRef.current.focus();
+    }
+
     return (
         <>
             <div className="table-title">
@@ -59,6 +67,9 @@ const EmployeeList = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+            <input ref={myRef} type="text"></input>
+            <button onClick={onButtonClickWithRef}>Focus input with useReef </button>
         </>
     )
 }
