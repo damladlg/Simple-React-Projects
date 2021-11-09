@@ -6,7 +6,7 @@ import AddForm from "./AddForm";
 
 const EmployeeList = () => {
 
-    const { employees } = useContext(EmployeeContext);
+    const { sortedEmployees } = useContext(EmployeeContext);
     const [show, setShow] = useState(false)
 
     const handleClose = () => setShow(false);
@@ -18,7 +18,7 @@ const EmployeeList = () => {
         return () => {
             handleClose();
         }
-    }, [employees])
+    }, [sortedEmployees])
 
     /* herhangi bir dom elemanına referans vererek current özelliğine bir özellik verebiliriz. useRefi ayıran özelliği sürekli render etmez */
     const myRef = useRef(null);
@@ -51,7 +51,7 @@ const EmployeeList = () => {
                 </thead>
                 <tbody>
                     {
-                        employees.map((employee) => (
+                        sortedEmployees.map((employee) => (
                             <tr key={employee.id}>
                                 <Employee employee={employee}></Employee>
                             </tr>
