@@ -1,24 +1,37 @@
 import Employee from "./Employee";
 import { useContext, useState, useEffect, useRef } from "react";
 import { EmployeeContext } from "../contexts/EmployeeContext";
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Modal, Alert } from 'react-bootstrap'
 import AddForm from "./AddForm";
 
 const EmployeeList = () => {
 
-    const { employees } = useContext(EmployeeContext);
+    const { sortedEmployees } = useContext(EmployeeContext);
     const [show, setShow] = useState(false)
+    const [showAlert, setShowAlert] = useState(false)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleShowAlert = () => setShowAlert(true);
+
+    /* handle show alertin belli bir süre sonra kendiliğinden kapanmasını istersek, alertten de onClose fonk kaldırılır.*/
+    // const handleShowAlert = () => {
+    //     setShowAlert(true);
+    //     setTimeout(() => {
+    //         setShowAlert(false);
+    //     },2000);
+    // };
+
 
     /* employees stateinde herhangi bir değişiklik oldugunda useEffect hooku yardımıyla tekrardan render edildi, modal kapattırıldı.
     employees da bir değişiklik olmaz ise useEffect çalışmaz. */
     useEffect(() => {
+        handleClose();
         return () => {
-            handleClose();
+            handleShowAlert();
+
         }
-    }, [employees])
+    }, [sortedEmployees])
 
     /* herhangi bir dom elemanına referans vererek current özelliğine bir özellik verebiliriz. useRefi ayıran özelliği sürekli render etmez */
     const myRef = useRef(null);
@@ -39,6 +52,11 @@ const EmployeeList = () => {
                     </div>
                 </div>
             </div>
+
+            <Alert show={showAlert} variant="success" onClose={() => setShowAlert(false)} dismissible>
+                Employee List successfully updated.
+            </Alert>
+
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -51,7 +69,7 @@ const EmployeeList = () => {
                 </thead>
                 <tbody>
                     {
-                        employees.map((employee) => (
+                        sortedEmployees.map((employee) => (
                             <tr key={employee.id}>
                                 <Employee employee={employee}></Employee>
                             </tr>
